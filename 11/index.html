@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>demo 11</title>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var UserGist = React.createClass({
+            getInitialState:function(){
+                return {
+                    username:"",
+                    lastGistUrl:""
+                };
+            },
+            componentWillMount:function(){
+                console.log("等待中");
+            },
+            componentDidMount:function(){
+                var _self = this;
+                setTimeout(function() {
+                    $.get(_self.props.source,function(result){
+                        var lastGist = result[0];
+                        if(_self.isMounted()){
+                            _self.setState({
+                                username:lastGist.owner.login,
+                                lastGist:lastGist.html_url
+                            });
+                        }
+                    }.bind(_self));
+                }, 3000);
+            },
+            render:function(){
+                return (
+                    <div>
+                        {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>
+                    </div>
+                );
+            }
+        });
+        ReactDOM.render(
+            <UserGist source="https://api.github.com/users/octocat/gists"/>,
+            document.getElementById('example')
+        );
+    </script>
+</body>
+</html>
