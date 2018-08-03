@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Props</title>
+</head>
+<body>
+
+    <div id="props1"></div>
+    <div id="props2"></div>
+    <div id="props3"></div>
+
+    <!-- 引入 react, react-dom, babel js 文件 -->
+    <script type="text/javascript" src="../js/react.js"></script>
+    <script type="text/javascript" src="../js/react-dom.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    
+    <!-- 要使用到 React.PropTypes 需要引入的js文件 -->
+    <script src="https://cdn.bootcss.com/prop-types/15.6.1/prop-types.js"></script>
+
+    <!-- 书写 ES6 或 JSX 语法需要 type="text/babel" -->
+    <script type="text/babel">
+        /**
+        组件的三大属性: props, state, refs
+        1. 每个组件对象都会有 props 属性
+        2. 组件标签的所有属性都保存在 props 中
+        3. 内部读取某个属性值： this.props.propertyName
+        4. 作用：通过标签属性从组件外向组件内传递数据（只读）
+        5. 对 props 中的属性值进行类型限制和必要性限制
+            Person.propTypes = {
+                name: React.PropTypes.string.isRequired,
+                age: React.PropTypes.number.isRequired,
+            }
+        6. 扩展属性：将对象的所有属性通过 props 传递
+            <Person {...person}/>
+        7. 默认属性值
+            Person.defaultProps = {
+                name: 'Mary'
+            };
+        8. 组件类的构造函数
+            constructor(props){
+                super(props);
+                console.log(props);
+            }
+        */
+
+        class Person extends React.Component{
+            constructor(props){
+                super(props)
+            }
+            render(){
+                return (
+                    <div>
+                        <ul>
+                            <li>姓名：{this.props.username}</li>
+                            <li>年龄：{this.props.age}</li>
+                            <li>性别：{this.props.sex}</li>
+                        </ul>
+                        <hr />
+                    </div>
+                )
+            }
+        }
+        Person.defaultProps = {
+            sex: '女'
+        }
+        // 默认值的显示
+        ReactDOM.render(
+            <Person />,
+            document.getElementById('props1')
+        )
+
+        let person = {username: 'Jeff', age: 28, sex: '男'}
+        // 扩展属性，所有属性通过 props 传递到组件
+        ReactDOM.render(
+            <Person {...person} />,
+            document.getElementById('props2')
+        )
+        
+        // 定义传入 props 的需要的检测
+        Person.propTypes = {
+            name: PropTypes.string.isRequired,
+            age: PropTypes.number.isRequired
+        }
+
+        // 通过定义传入 props 的检测后渲染
+        ReactDOM.render(
+            <Person age="abc" />,
+            document.getElementById('props3')
+        )
+
+    </script>
+</body>
+</html>

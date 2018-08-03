@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Element</title>
+</head>
+<body>
+    <div id="element1"></div>
+    <div id="element2"></div>
+    <!-- 引入 react, react-dom, babel js 文件 -->
+    <script type="text/javascript" src="../js/react.js"></script>
+    <script type="text/javascript" src="../js/react-dom.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 书写 ES6 或 JSX 语法需要 type="text/babel" -->
+    <script type="text/babel">
+        // 创建虚拟 DOM 对象
+        // React.createElement('h1',{id:'title'},'title')
+        let element1 = React.createElement('h2',{id:'el1', className:'box'}, '通过 React.createElement 创建 虚拟DOM对象')
+        // JSX 创建虚拟 DOM 对象
+        let element2 = <h3>通过 JSX 创建 虚拟DOM对象</h3>
+        // 渲染虚拟 DOM 对象
+        ReactDOM.render(element1, document.getElementById('element1'))
+        ReactDOM.render(element2, document.getElementById('element2'))
+    </script>
+</body>
+</html>

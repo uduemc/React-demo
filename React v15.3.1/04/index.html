@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Component</title>
+</head>
+<body>
+
+    <div id="example1"></div>
+    <div id="example2"></div>
+    <div id="example3"></div>
+
+    <!-- 引入 react, react-dom, babel js 文件 -->
+    <script type="text/javascript" src="../js/react.js"></script>
+    <script type="text/javascript" src="../js/react-dom.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 书写 ES6 或 JSX 语法需要 type="text/babel" -->
+    <script type="text/babel">
+        // 创建组件
+        // 工厂（无状态）函数（最简洁的情况下推荐使用）
+        function MyComponent1(){
+            return <h2>1. 返回的组件类必须首字母大写</h2>
+        }
+
+        // ES6 class 定义组件
+        class MyComponent2 extends React.Component{
+            render(){
+                return <h2>2. 虚拟DOM元素必须只有一个根元素</h2>
+            }
+        }
+
+        // ES5 老式语法
+        let MyComponent3 = React.createClass({
+            render: function(){
+                return <h2>3. 虚拟DOM元素必须要有一个结束标签 </h2>
+            }
+        })
+
+        // 渲染组件
+        ReactDOM.render(<MyComponent1 />, document.getElementById('example1'))
+        ReactDOM.render(<MyComponent2 />, document.getElementById('example2'))
+        ReactDOM.render(<MyComponent3 />, document.getElementById('example3'))
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>State</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入 react, react-dom, babel js 文件 -->
+    <script type="text/javascript" src="../js/react.js"></script>
+    <script type="text/javascript" src="../js/react-dom.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 书写 ES6 或 JSX 语法需要 type="text/babel" -->
+    <script type="text/babel">
+        // 构建一个简单的 todo list 的效果
+        // 最外层 组件 
+        class App extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    list: [
+                        {id:1, name:'吃饭'},
+                        {id:2, name:'学习'},
+                        {id:3, name:'打豆豆'}
+                    ]
+                }
+                this.addTodo = this.addTodo.bind(this)
+            }
+
+            addTodo(todo){
+                let _state = this.state
+                let _list = _state.list
+                _list.unshift(todo)
+                _state.list = _list
+                this.setState(_state)
+            }
+
+            render(){
+                return (
+                    <div>
+                        <h2>Simple Todo List</h2>
+                        <Todo length={this.state.list.length} addTodo={this.addTodo}/>
+                        <TodoList list={this.state.list} />
+                    </div>
+                )
+            }
+        }
+
+        // 构建中间层表单以及按钮组件
+        class Todo extends React.Component{
+            constructor(props){
+                super(props)
+                this.addTodo = this.addTodo.bind(this)
+            }
+            addTodo(){
+                if(this.refs.name.value == ""){
+                    return ;
+                }
+                let name = this.refs.name.value
+                let todo = {
+                    id: this.props.length + 1,
+                    name: name
+                }
+                this.props.addTodo(todo)
+                this.refs.name.value = ""
+            }
+            render(){
+                return (
+                    <div>
+                        <input type="text" ref="name" /><input onClick={this.addTodo} type="submit" value={'Add #' + this.props.length} />
+                    </div>
+                )
+            }
+        }
+
+        // 展示的列表组件
+        class TodoList extends React.Component{
+            constructor(props){
+                super(props)
+            }
+            render(){
+                return (
+                    <ul>
+                        {this.props.list.map((item, index) => {
+                            return (
+                                <li data-id={item.id} key={index}>{item.name}</li>
+                            )
+                        })}
+                    </ul>
+                )
+            }
+        }
+
+        ReactDOM.render(<App />,document.getElementById('app'))
+    </script>
+</body>
+</html>

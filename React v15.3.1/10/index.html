@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lifecycle</title>
+</head>
+<body>
+    <div id="lifecycle"></div>
+    <hr>
+    <div id="app"></div>
+
+    <!-- 引入 react, react-dom, babel js 文件 -->
+    <script type="text/javascript" src="../js/react.js"></script>
+    <script type="text/javascript" src="../js/react-dom.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 书写 ES6 或 JSX 语法需要 type="text/babel" -->
+    <script type="text/babel">
+        // 声明周期
+        class Lifecycle extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    name: 'Maikoo',
+                    age: 39
+                }
+                this.interval = setInterval(()=>{
+                    console.log("setInterval()")
+                }, 1000)
+            }
+            componentWillMount(){
+                console.log("componentWillMount() 挂载前")
+                setTimeout(() => {
+                    this.setState({
+                        name: 'Jeff',
+                        age: 49
+                    })
+                }, 1000)
+            }
+            componentDidMount(){
+                console.log("componentDidMount() 挂载后")
+                setTimeout(() => {
+                    this.setState({
+                        name: 'Enter',
+                        age: 59
+                    })
+                }, 3000)
+
+                // 5 秒后卸载
+                
+                setTimeout(() => {
+                    ReactDOM.unmountComponentAtNode(document.getElementById('lifecycle'))
+                }, 5000)
+            }
+            componentWillUpdate(){
+                console.log("componentWillUpdate() 更新前")
+            }
+            componentDidUpdate(){
+                console.log("componentDidUpdate() 更新后")
+            }
+            componentWillUnmount(){
+                console.log("componentWillUnmount() 卸载")
+                clearInterval(this.interval)
+            }
+            render(){
+                console.log('render() ')
+                let {name, age} = this.state;
+                return (
+                    <div>
+                        <h2>React 生命周期允许过程 console.log() 打印日志！</h2>
+                        <div> {name} --- {age} </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Lifecycle />,
+            document.getElementById('lifecycle')
+        )
+
+        // 字体渐变
+        class App extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    opacity: 1
+                }
+            }
+            componentDidMount(){
+                let opacity = this.state.opacity
+                
+                setInterval(()=>{
+                    opacity -= 0.05
+                    if(opacity < 0.1){
+                        opacity = 1
+                    }
+                    this.setState({opacity})
+                },50)
+            }
+            render(){
+                let {opacity} = this.state
+                return (
+                    <p style={{opacity}}>www.uduemc.com</p>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('app')
+        )
+    </script>
+</body>
+</html>

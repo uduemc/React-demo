@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Composing</title>
+</head>
+<body>
+
+    <div id="app"></div>
+
+    <!-- 引入 react, react-dom, babel js 文件 -->
+    <script type="text/javascript" src="../js/react.js"></script>
+    <script type="text/javascript" src="../js/react-dom.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 书写 ES6 或 JSX 语法需要 type="text/babel" -->
+    <script type="text/babel">
+        // 创建顶层 app 虚拟 DOM
+        class App extends React.Component{
+            render(){
+                let {user} = this.props
+                console.log(user);
+                return (
+                    <div>
+                        {user.map((item, index) => {
+                            return <MyComponent name={item} key={index}/>
+                        })}
+                    </div>
+                )
+            }
+        }
+
+        function MyComponent(props){
+            return <h2>MyComponent {props.name}</h2>
+        }
+
+        let user = [
+            'Tom','Jack','Jeff','Marry'
+        ];
+        
+        ReactDOM.render(
+            <App user={user} />,
+            document.getElementById('app')
+        )
+    </script>
+</body>
+</html>

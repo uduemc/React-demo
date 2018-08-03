@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Controlled</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入 react, react-dom, babel js 文件 -->
+    <script type="text/javascript" src="../js/react.js"></script>
+    <script type="text/javascript" src="../js/react-dom.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 书写 ES6 或 JSX 语法需要 type="text/babel" -->
+    <script type="text/babel">
+        // 受控组件
+        class App extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    msg: 'www.uduemc.com'
+                }
+                this.handleChange = this.handleChange.bind(this)
+            }
+            handleChange(event){
+                this.setState({
+                    msg: event.target.value
+                })
+            }
+            render(){
+                let {msg} = this.state
+                return (
+                    <div>
+                        <input onChange={this.handleChange} type="text" value={msg} />
+                        <p>{msg}</p>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<App />, document.getElementById('app'))
+
+    </script>
+</body>
+</html>
