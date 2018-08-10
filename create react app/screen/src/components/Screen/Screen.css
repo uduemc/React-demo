@@ -1,0 +1,76 @@
+#screen {
+  position: fixed;
+}
+#screen .icon span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  background: #000000;
+  opacity: 0.9;
+  line-height: 30px;
+  text-align: center;
+  color: #ffffff;
+  font-style: normal;
+}
+
+#screen .container {
+  position: absolute;
+}
+#screen .container .main {
+  position: relative;
+  width: 180px;
+  padding: 10px;
+  background: #000000;
+  opacity: 0.7;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+#screen .container .main .context{
+    overflow-y: auto;
+    height: 80px;
+    margin-bottom: 10px;
+    background: #333333;
+    padding: 4px;
+}
+#screen .container .main .message{
+    margin-bottom: 10px;
+}
+
+#screen .container .main .spar{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#screen .container .main .opteration{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+#screen .container .main .opteration span{
+    width: 45%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen-button {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.screen-button span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    width: 50%;
+    border:1px solid #e5e5e5;
+}
